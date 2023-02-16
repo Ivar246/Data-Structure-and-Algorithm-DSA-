@@ -8,10 +8,10 @@ function linearSearch(searchedElement, arr) {
   return -1;
 }
 
-const result = linearSearch(searchedElement, arr);
+const index = linearSearch(searchedElement, arr);
 
-if (result === -1) {
+if (index === -1) {
   console.log("Not found");
 } else {
-  console.log(`found at index: ${result}`);
+  console.log(`found at index: ${index}`);
 }
