@@ -9,6 +9,7 @@ class LinkedList {
   constructor(head = null) {
     this.head = head;
   }
+  error = null;
 
   get size() {
     let node = this.head;
@@ -20,7 +21,8 @@ class LinkedList {
     return i;
   }
 
-  append(newNode) {
+  append(data) {
+    let newNode = new Node(data);
     let node = this.head;
     if (!node) {
       this.head = newNode;
@@ -52,38 +54,37 @@ class LinkedList {
     this.head = prevNode;
   }
 
-  insertAtIndex(index, newNode) {
+  insertAtIndex(index, data) {
+    let newNode = new Node(data);
     let currentNode = this.head;
-    let c = 0;
-    while (currentNode) {
-      if (c + 1 === index) {
+    if (index === 0) return this.insertAtBegining(data);
+    if (index > this.size - 1) {
+      console.log("Index out of range");
+      return;
+    }
+    for (let i = 0; i < this.size; i++) {
+      if (i + 1 === index) {
         let temp = currentNode.next;
         currentNode.next = newNode;
         newNode.next = temp;
         return;
       }
       currentNode = currentNode.next;
-      c++;
     }
   }
 
   deleteAtIndex(index) {
-    let currentNode = this.head;
-    let c = 0;
-    console.log("size", this.size);
-    console.log(index, this.size);
+    let node = this.head;
+
     if (index > this.size - 1) {
       console.log("index out of range");
       return;
     }
-    while (currentNode) {
-      if (c + 1 === index) {
-        currentNode.next = currentNode.next.next;
-        return;
-      }
-      currentNode = currentNode.next;
-      c++;
-    }
+
+    if (index === 0) this.head = this.head.next;
+
+    for (let i = 0; i < index - 1; i++) node = node.next;
+    node.next = node.next.next;
   }
 
   print() {
@@ -96,14 +97,15 @@ class LinkedList {
 }
 
 let list = new LinkedList();
-list.append(new Node(5));
-list.append(new Node(16));
-list.append(new Node(12));
-list.append(new Node(13));
-list.append(new Node(14));
+list.append(5);
+list.append(16);
+list.append(12);
+list.append(13);
+list.append(14);
 list.insertAtBegining(4);
-list.insertAtIndex(2, new Node(32));
-list.deleteAtIndex(6);
-list.deleteAtIndex(6);
+list.insertAtIndex(2, 32);
+
+list.deleteAtIndex(0);
+list.insertAtIndex(0, 66);
 list.print();
 console.log(list.size);
