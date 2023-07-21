@@ -7,8 +7,6 @@ struct Node
     struct Node *next;
 };
 
-struct Node *tail;
-
 struct Node *Insert(struct Node *head, int data)
 {
 
@@ -31,39 +29,15 @@ struct Node *Insert(struct Node *head, int data)
     return head;
 }
 
-// reverse
-struct Node *reverse(struct Node *current, struct Node *prev)
-{
-    if (current == NULL)
-    {
-        return prev;
-    }
-    struct Node *next = current->next;
-    current->next = prev;
-    return reverse(next, current);
-}
-
-// recursive print
-void print(struct Node *ptr)
-{
-    if (ptr == NULL)
-    {
-        printf("\n");
-        return;
-    }
-    printf("%d\t", ptr->data);
-    return print(ptr->next);
-}
-
 // recursive reverse print
-void reversePrint(struct Node *ptr)
+void recursiveReversePrint(struct Node *ptr)
 {
     if (ptr == NULL)
     {
         printf("\n");
         return;
     }
-    reversePrint(ptr->next);
+    recursiveReversePrint(ptr->next);
     printf("%d\t", ptr->data);
 }
 
@@ -75,8 +49,7 @@ int main()
     head = Insert(head, 7);
     head = Insert(head, 8);
     printf("Items in the list are: \n");
-    print(head);
-    // head = reverse(head, NULL);
-    reversePrint(head);
+    recursiveReversePrint(head);
+
     return 0;
 }
